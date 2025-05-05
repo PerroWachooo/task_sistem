@@ -1,57 +1,75 @@
-# Mini Task System
+# Nuxt Minimal Starter
 
-Este proyecto es una aplicación de gestión de tareas que permite a los usuarios listar, crear y actualizar tareas. Está compuesto por un backend desarrollado en Go y un frontend desarrollado con Nuxt 3.
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Características
+## Setup
 
-- **Backend**: Proporciona una API REST para gestionar las tareas, utilizando MongoDB como base de datos.
-- **Frontend**: Interfaz de usuario para interactuar con la API, desarrollada con Nuxt 3 y TailwindCSS.
+Make sure to install dependencies:
 
----
+```bash
+# npm
+npm install
 
-## Requisitos previos
+# pnpm
+pnpm install
 
-Asegúrate de tener instalados los siguientes programas en tu sistema:
+# yarn
+yarn install
 
-- [Go](https://golang.org/) (versión 1.19 o superior)
-- [Node.js](https://nodejs.org/) (versión 18 o superior)
-- [MongoDB](https://www.mongodb.com/) (en ejecución)
+# bun
+bun install
+```
 
----
+## Development Server
 
-## Configuración del proyecto
+Start the development server on `http://localhost:3000`:
 
-1. **Clonar el repositorio**:
-   ```bash
-   git clone https://github.com/tu-usuario/mini-task-system.git
-   cd mini-task-system
+```bash
+# npm
+npm run dev
 
+# pnpm
+pnpm dev
 
-2. **Configurar back**
+# yarn
+yarn dev
 
-3. **Configurar front**
-Ve al directorio del frontend:
-    cd ../mini-task-frontend
+# bun
+bun run dev
+```
 
-Instala las dependencias del frontend:
-    npm install
+## Production
 
+Build the application for production:
 
-## Iniciar proyecto
+```bash
+# npm
+npm run build
 
-1. Ejecutar el backend
-Ve al directorio del backend:
-    ```bash
-    cd mini-task-backend
-Ejecuta el servidor:
-    ```bash
-    go run main.go
+# pnpm
+pnpm build
 
-2. Ejecutar Fronted
-Ve al directorio del frontend:
-    ```bash
-    cd mini-task-fronend
-Ejecuta el servidor:
-    ```bash
-    npm run dev
-El frontend estará disponible en: http://localhost:3000
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
