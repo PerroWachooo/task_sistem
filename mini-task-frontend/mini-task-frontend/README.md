@@ -1,75 +1,57 @@
-# Nuxt Minimal Starter
+# Mini Task System
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Este proyecto es una aplicación de gestión de tareas que permite a los usuarios listar, crear y actualizar tareas. Está compuesto por un backend desarrollado en Go y un frontend desarrollado con Nuxt 3.
 
-## Setup
+## Características
 
-Make sure to install dependencies:
+- **Backend**: Proporciona una API REST para gestionar las tareas, utilizando MongoDB como base de datos.
+- **Frontend**: Interfaz de usuario para interactuar con la API, desarrollada con Nuxt 3 y TailwindCSS.
 
-```bash
-# npm
-npm install
+---
 
-# pnpm
-pnpm install
+## Requisitos previos
 
-# yarn
-yarn install
+Asegúrate de tener instalados los siguientes programas en tu sistema:
 
-# bun
-bun install
-```
+- [Go](https://golang.org/) (versión 1.19 o superior)
+- [Node.js](https://nodejs.org/) (versión 18 o superior)
+- [MongoDB](https://www.mongodb.com/) (en ejecución)
 
-## Development Server
+---
 
-Start the development server on `http://localhost:3000`:
+## Configuración del proyecto
 
-```bash
-# npm
-npm run dev
+1. **Clonar el repositorio**:
+   ```bash
+   git clone https://github.com/tu-usuario/mini-task-system.git
+   cd mini-task-system
 
-# pnpm
-pnpm dev
 
-# yarn
-yarn dev
+2. **Configurar back**
 
-# bun
-bun run dev
-```
+3. **Configurar front**
+Ve al directorio del frontend:
+    cd ../mini-task-frontend
 
-## Production
+Instala las dependencias del frontend:
+    npm install
 
-Build the application for production:
 
-```bash
-# npm
-npm run build
+## Iniciar proyecto
 
-# pnpm
-pnpm build
+1. Ejecutar el backend
+Ve al directorio del backend:
+    ```bash
+    cd mini-task-backend
+Ejecuta el servidor:
+    ```bash
+    go run main.go
 
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+2. Ejecutar Fronted
+Ve al directorio del frontend:
+    ```bash
+    cd mini-task-fronend
+Ejecuta el servidor:
+    ```bash
+    npm run dev
+El frontend estará disponible en: http://localhost:3000
