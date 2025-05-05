@@ -1,43 +1,24 @@
 <template>
   <div>
-    <!-- Puedes agregar aquí un encabezado global o navbar -->
-    <header>
-      <nav>
-        <ul>
-          <li><router-link to="/tasks">Lista de Tareas</router-link></li>
-          <li><router-link to="/new-task">Crear Tarea</router-link></li>
-        </ul>
+    <!-- Header con navbar -->
+    <header class="bg-gray-800 text-white p-4 shadow-md">
+      <nav class="container mx-auto flex justify-between items-center">
+        <h1 class="text-3xl font-semibold">Mini Task Manager</h1>
+        
       </nav>
     </header>
 
     <!-- Renderiza el contenido de cada página -->
-    <NuxtPage />
+    <main class="container mx-auto p-6">
+      <NuxtPage />
+    </main>
   </div>
 </template>
 
 <script setup>
-// Si necesitas usar algo global, como el estado de la aplicación, puedes hacerlo aquí
+// Aquí podrías agregar lógica global o de la aplicación si lo necesitas.
 </script>
 
 <style scoped>
-/* Aquí puedes agregar estilos globales o del layout */
-header {
-  background-color: #333;
-  color: white;
-  padding: 10px;
-}
-
-nav ul {
-  list-style-type: none;
-  display: flex;
-}
-
-nav ul li {
-  margin-right: 15px;
-}
-
-a {
-  color: white;
-  text-decoration: none;
-}
+/* El diseño ya está cubierto por Tailwind CSS, no necesitas agregar estilos adicionales aquí */
 </style>

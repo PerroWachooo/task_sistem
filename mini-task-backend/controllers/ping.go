@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"mini-task-backend/services"
+	"mini-task-backend/models"
 	"net/http"
 	"time"
 
@@ -17,12 +18,8 @@ func PingController(c *gin.Context) {
 
 // CreateTask crea una nueva tarea
 func CreateTaskController(c *gin.Context) {
-	var task struct {
-		Title       string    `json:"title"`
-		Description string    `json:"description"`
-		Completed   bool      `json:"completed"`
-		CreatedAt   time.Time `json:"createdAt"`
-	}
+	var task models.Task // Definir la variable de tarea
+
 
 	if err := c.ShouldBindJSON(&task); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -77,6 +74,51 @@ func GetTasksController(c *gin.Context) {
 
 // UpdateTaskController actualiza una tarea por ID
 func UpdateTaskController(c *gin.Context) {
+    id := c.Param("id") // Obtener el ID de la tarea desde los parámetros de la URL
+
+    // Convertir el ID a ObjectID
+    objectID, err := primitive.ObjectIDFromHex(id)
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
+        return
+    }
+
+    // Obtener la colección de tareas
+    collection := services.Client.Database("taskdb").Collection("task")
+
+    // Buscar la tarea en la base de datos
+    var task struct {
+        Completed bool `bson:"completed"`
+    }
+    err = collection.FindOne(c, bson.M{"_id": objectID}).Decode(&task)
+    if err != nil {
+        if err == mongo.ErrNoDocuments {
+            c.JSON(http.StatusNotFound, gin.H{"error": "Tarea no encontrada"})
+        } else {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al obtener la tarea"})
+        }
+        return
+    }
+
+    // Alternar el estado de "completada" (si está true, poner como false, y viceversa)
+    update := bson.M{
+        "$set": bson.M{"completed": !task.Completed}, // Alternamos el valor de completado
+    }
+
+    // Actualizar la tarea en la base de datos
+    result := collection.FindOneAndUpdate(c, bson.M{"_id": objectID}, update)
+
+    if result.Err() != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al actualizar la tarea"})
+        return
+    }
+
+    // Responder con éxito
+    c.JSON(http.StatusOK, gin.H{"message": "Tarea actualizada correctamente"})
+}
+
+// DeleteTaskController elimina una tarea por ID
+func DeleteTaskController(c *gin.Context) {
 	id := c.Param("id") // Obtener el ID de la tarea desde los parámetros de la URL
 
 	// Convertir el ID a ObjectID
@@ -86,27 +128,17 @@ func UpdateTaskController(c *gin.Context) {
 		return
 	}
 
-	// Definir los cambios que queremos hacer (marcar como completada)
-	update := bson.M{
-		"$set": bson.M{"completed": true},
-	}
-
 	// Obtener la colección de tareas
 	collection := services.Client.Database("taskdb").Collection("task")
 
-	// Actualizar la tarea en la base de datos
-	result := collection.FindOneAndUpdate(c, bson.M{"_id": objectID}, update)
-
-	if result.Err() == mongo.ErrNoDocuments {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Tarea no encontrada"})
-		return
-	}
-
-	if result.Err() != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al actualizar la tarea"})
+	// Eliminar la tarea de la base de datos
+	_, err = collection.DeleteOne(c, bson.M{"_id": objectID})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al eliminar la tarea"})
 		return
 	}
 
 	// Responder con éxito
-	c.JSON(http.StatusOK, gin.H{"message": "Tarea actualizada correctamente"})
+	c.JSON(http.StatusOK, gin.H{"message": "Tarea eliminada correctamente"})
 }
+
